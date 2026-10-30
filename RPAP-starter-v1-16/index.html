@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080b16">
+  <meta name="description" content="RP@P">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <title>RP@P</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+    :root {
+      color-scheme: dark;
+      --bg:#080b16; --panel:rgba(20,25,43,.78); --panel2:rgba(28,34,56,.68);
+      --text:#f3ead7; --muted:#b9ad98; --line:rgba(218,184,119,.19);
+      --accent:#e7bd68; --shadow:0 18px 55px rgba(0,0,0,.28);
+      --nav:rgba(10,14,29,.88);
+    }
+    [data-theme="light"] {
+      color-scheme:light;
+      --bg:#eef3fb; --panel:rgba(255,255,255,.86); --panel2:rgba(245,248,255,.92);
+      --text:#17213a; --muted:#596783; --line:rgba(65,90,150,.18);
+      --accent:#2869c7; --shadow:0 18px 55px rgba(55,85,140,.12);
+      --nav:rgba(255,255,255,.94);
+    }
+    [data-theme="light"] .brand {
+      background:linear-gradient(100deg,#8a5a12,#284f91 52%,#69439b);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    [data-theme="light"] .welcome {
+      background:linear-gradient(115deg,rgba(207,231,248,.96),rgba(232,220,250,.94)),var(--panel);
+      border-color:rgba(76,112,170,.2);
+    }
+    [data-theme="light"] .welcome:after {
+      background:radial-gradient(circle,rgba(27,170,190,.16),transparent 68%);
+    }
+    [data-theme="light"] .welcome h1 {color:#17213a}
+    [data-theme="light"] .welcome p {color:#4e5d78}
+    [data-theme="light"] .icon-btn {background:linear-gradient(145deg,rgba(130,100,255,.12),rgba(20,180,190,.08))}
+    [data-theme="light"] .neon {border-color:rgba(90,105,145,.2);background:linear-gradient(145deg,rgba(255,255,255,.8),rgba(232,239,250,.42));box-shadow:inset 0 1px 9px rgba(255,255,255,.8),0 8px 25px var(--glow)}
+    [data-theme="light"] .nav button.active {background:rgba(40,105,199,.09)}
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(ellipse at 10% 0%,rgba(0,190,170,.13),transparent 34%),radial-gradient(ellipse at 95% 20%,rgba(140,65,255,.13),transparent 32%),var(--bg);color:var(--text);font-family:Vazirmatn,Tahoma,sans-serif;min-height:100vh;padding-bottom:100px;transition:background .25s,color .25s}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    .wrap{max-width:900px;margin:auto;padding:22px 18px 30px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 22px}
+    .brand{font-size:32px;font-weight:800;letter-spacing:-1px;line-height:1;background:linear-gradient(100deg,#f0cf83,#fff1d2 48%,#b78cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .tagline{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.7}
+    .glass{background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-radius:23px}
+    .icon-btn{width:44px;height:44px;border-radius:15px;border:1px solid var(--line);color:var(--text);background:linear-gradient(145deg,rgba(130,100,255,.2),rgba(20,220,210,.08));font-size:20px}
+    .welcome{padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;overflow:hidden;position:relative;background:linear-gradient(115deg,rgba(16,75,112,.55),rgba(49,25,92,.55)),var(--panel);min-height:116px}
+    .welcome:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(27,220,209,.25),transparent 68%);left:-35px;top:-65px}
+    .welcome h1{font-size:22px;margin:0 0 5px}.welcome p{margin:0;color:var(--muted);font-size:15px;line-height:1.85}
+    .sun{font-size:25px;filter:drop-shadow(0 0 12px #ffcf57);z-index:1}
+    .section-head{display:flex;align-items:center;justify-content:space-between;margin:25px 2px 13px}
+    .section-head h2{font-size:17px;margin:0;color:var(--text)}.subtle{font-size:12px;color:var(--muted)}
+    .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .tile{padding:15px 8px 13px;text-align:center;min-height:145px;color:var(--text);border:1px solid var(--line);background:var(--panel2);border-radius:23px;transition:transform .18s,border-color .18s}
+    .tile:hover{transform:translateY(-3px);border-color:rgba(80,220,220,.45)}
+    .neon{width:68px;height:68px;margin:0 auto 10px;border-radius:21px;display:grid;place-items:center;position:relative;border:1px solid rgba(235,211,164,.22);background:linear-gradient(145deg,rgba(255,245,220,.14),rgba(255,255,255,.025));box-shadow:inset 0 1px 9px rgba(255,245,220,.08),0 8px 25px var(--glow)}
+    .neon svg{width:34px;height:34px;filter:drop-shadow(0 0 8px var(--glow))}
+    .tile strong{display:block;font-size:14px}.tile small{display:block;color:var(--muted);font-size:12px;margin-top:4px;line-height:1.6}
+    .green{--glow:rgba(0,255,160,.45);color:#27f5a3}.purple{--glow:rgba(171,77,255,.48);color:#bd75ff}.blue{--glow:rgba(39,135,255,.5);color:#56a5ff}.pink{--glow:rgba(255,38,145,.48);color:#ff3d9d}.orange{--glow:rgba(255,137,48,.45);color:#ff9a4a}.cyan{--glow:rgba(0,220,245,.45);color:#22e3f4}
+    .list{display:grid;gap:9px}
+    .item{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);background:var(--panel);border-radius:18px;min-width:0}
+    .item .mini{width:42px;height:42px;flex:none;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(130,90,255,.28),rgba(0,210,190,.14));font-size:19px}
+    .item .info{min-width:0;flex:1}.item strong{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.item small{display:block;color:var(--muted);font-size:13px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .item a{color:var(--accent);text-decoration:none;font-size:19px;padding:4px}
+    .empty{padding:22px;text-align:center;color:var(--muted);font-size:14px;line-height:1.9;border:1px dashed var(--line);border-radius:18px}
+    .blog-accordion{border:1px solid var(--line);background:var(--panel);border-radius:19px;overflow:hidden;box-shadow:var(--shadow)}
+    .blog-accordion details{width:100%}
+    .blog-accordion summary{list-style:none;display:flex;align-items:center;gap:12px;padding:13px 14px;cursor:pointer;min-width:0}
+    .blog-accordion summary::-webkit-details-marker{display:none}
+    .blog-accordion .info{min-width:0;flex:1;display:flex;flex-direction:column;gap:4px}
+    .blog-accordion .info strong{display:block;font-size:14px;line-height:1.6;white-space:normal}
+    .blog-accordion .info small{display:block;color:var(--muted);font-size:13px;line-height:1.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+    .blog-accordion summary:focus-visible{outline:2px solid var(--accent);outline-offset:-3px;border-radius:16px}
+    .blog-accordion .blog-arrow{margin-right:auto;color:var(--accent);font-size:19px;transition:transform .2s}
+    .blog-accordion details[open] .blog-arrow{transform:rotate(180deg)}
+    .blog-accordion .blog-content{padding:0 14px 14px}
+    .blog-accordion .blog-content p{font-size:15px;line-height:2;color:var(--muted);margin:0 0 10px}
+    .blog-accordion .blog-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .blog-accordion .blog-actions a{display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border-radius:12px;text-decoration:none;font-size:13px;color:var(--text);background:var(--panel2);border:1px solid var(--line)}
+    .blog-accordion .blog-actions a.primary-link{background:linear-gradient(100deg,#11bdb2,#397df2);color:white;border:0}
+
+    .bottom{position:fixed;bottom:0;left:0;right:0;z-index:5;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:var(--nav);border-top:1px solid var(--line);backdrop-filter:blur(20px)}
+    .nav{max-width:600px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+    .nav button{border:0;background:transparent;color:var(--muted);font-size:10px;padding:7px 2px;border-radius:14px}
+    .nav button span{display:block;font-size:21px;margin-bottom:2px}
+    .nav button.active{color:var(--accent);background:rgba(30,190,190,.09)}
+    .page{display:none}.page.active{display:block}
+    .toolbar{display:flex;gap:9px;align-items:center;margin:18px 0 14px}
+    .primary,.secondary,.danger{border:0;border-radius:13px;padding:10px 14px;font-size:13px}
+    .primary{background:linear-gradient(100deg,#11bdb2,#397df2);color:white}
+    .secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+    .danger{background:rgba(255,50,90,.12);color:#ff718e;border:1px solid rgba(255,50,90,.2)}
+    .field{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:var(--panel2);color:var(--text);outline:none;margin:5px 0 12px}
+    label{font-size:13px;color:var(--muted)}
+    .formbox{padding:17px;margin:12px 0}
+    .formbox h3{margin:0 0 14px;font-size:16px}
+    .row-actions{display:flex;gap:7px;align-items:center}
+    .row-actions button{font-size:11px;padding:7px 9px}
+    .hidden{display:none!important}
+    .note{font-size:15px;color:var(--muted);line-height:2;font-weight:400}
+    @media(min-width:700px){.wrap{padding-top:34px}.tiles{gap:16px}.tile{min-height:158px;padding-top:20px}.neon{width:76px;height:76px}.brand{font-size:38px}}
+    @media(max-width:380px){.tiles{gap:8px}.tile{min-height:132px}.neon{width:58px;height:58px}.tile strong{font-size:12px}}
+
+    /* Mobile-first refinements for narrow Android and iPhone screens */
+    html{min-width:320px;scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+    body{min-width:320px;min-height:100vh;min-height:100svh;overflow-x:hidden;overflow-x:clip;padding-bottom:calc(86px + env(safe-area-inset-bottom))}
+    .wrap{width:100%;max-width:900px;margin-inline:auto;padding:16px 14px 24px}
+    header{min-width:0;margin:2px 0 18px}
+    header>div{min-width:0}
+    .brand{font-size:30px}
+    .tagline{font-size:12px}
+    .welcome{min-width:0;padding:17px 16px;min-height:104px;border-radius:20px}
+    .welcome h1{font-size:clamp(18px,5vw,22px)}
+    .welcome p{font-size:clamp(14px,3.7vw,16px)}
+    .section-head{gap:8px;min-width:0;margin:22px 2px 12px}
+    .section-head h2{font-size:17px}
+    .section-head .subtle{font-size:12px;text-align:left}
+    .tiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+    .tile{min-width:0;min-height:132px;padding:12px 5px 10px;border-radius:19px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start}
+    .neon{width:60px;height:60px;flex:none;margin-bottom:8px;border-radius:18px}
+    .neon svg{width:29px;height:29px}
+    .tile strong{width:100%;font-size:clamp(12px,3.4vw,14px);line-height:1.55;overflow-wrap:anywhere}
+    .tile small{width:100%;font-size:12px;line-height:1.65;overflow-wrap:anywhere}
+    .glass{border-radius:20px}
+    .item{gap:9px;padding:10px;border-radius:16px}
+    .item .mini,.blog-accordion .mini{width:38px;height:38px;flex:0 0 38px;border-radius:12px}
+    .item strong{font-size:14px}
+    .item small{font-size:12px;line-height:1.65;white-space:normal;overflow-wrap:anywhere}
+    .item a{padding:7px;min-width:36px;text-align:center}
+    .blog-accordion{border-radius:17px}
+    .blog-accordion summary{gap:9px;padding:12px 10px}
+    .blog-accordion .info strong{font-size:14px;overflow-wrap:anywhere}
+    .blog-accordion .info small{font-size:12px;line-height:1.7}
+    .blog-accordion .blog-content{padding:0 12px 12px}
+    .blog-accordion .blog-content p{font-size:15px;line-height:2}
+    .bottom{padding:7px 8px calc(7px + env(safe-area-inset-bottom));padding-bottom:max(7px,env(safe-area-inset-bottom));}
+    .nav{grid-template-columns:repeat(5,minmax(0,1fr));gap:3px}
+    .nav button{min-width:0;min-height:48px;padding:5px 1px;font-size:clamp(9px,2.7vw,11px);white-space:nowrap}
+    .nav button span{font-size:20px;line-height:1.2}
+    .toolbar,.row-actions{flex-wrap:wrap}
+    .row-actions button,.primary,.secondary,.danger{min-height:40px}
+    .formbox{padding:14px;margin:10px 0}
+    .field{min-height:44px;font-size:16px} /* prevents iOS input zoom */
+    .note{font-size:14px;line-height:1.9;overflow-wrap:anywhere}
+    #centralStatus{margin:0 0 12px;padding:10px 12px;border:1px solid var(--line);border-radius:13px;background:var(--panel);font-size:13px;line-height:1.7}
+    @media(max-width:340px){
+      .wrap{padding-inline:10px}
+      .tiles{gap:7px}
+      .tile{min-height:124px;padding-inline:3px}
+      .neon{width:54px;height:54px}
+      .nav button span{font-size:18px}
+      .nav button{font-size:10px}
+    }
+    @media(min-width:600px) and (max-width:699px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(hover:none){.tile:hover{transform:none}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><div class="brand">RP@P</div><div class="tagline">فضای شخصی تو، در یک نقطه</div></div>
+    <button class="icon-btn" id="themeBtn" aria-label="تغییر پوسته">☼</button>
+  </header>
+
+  <main>
+    <section id="home" class="page active">
+      <div class="welcome glass"><div><h1>سلام! 👋</h1><p>همه چیزهایی که دوست داری، یک‌جا.</p></div><div class="sun">✦</div></div>
+      <div class="section-head"><h2>دسترسی سریع</h2><span class="subtle">فضای شخصی RP@P</span></div>
+      <div class="tiles">
+        <button class="tile" data-go="blogs"><span class="neon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4zM8 9h8M8 13h6"/></svg></span><strong>وبلاگ‌ها</strong><small>مطالب و نوشته‌ها</small></button>
+        <button class="tile" data-go="podcasts"><span class="neon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM6 11v1a6 6 0 0 0 12 0v-1M12 18v3m-4 0h8"/></svg></span><strong>پادکست‌ها</strong><small>گوش بده و دنبال کن</small></button>
+        <button class="tile" data-go="social"><span class="neon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-4 2-6 6-6s6 2 6 6m0-5c3-1 6 1 6 5"/></svg></span><strong>شبکه‌های اجتماعی</strong><small>در ارتباط باش</small></button>
+        <button class="tile" data-go="links"><span class="neon pink"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-8-4.8-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.2-8 11-8 11z"/></svg></span><strong>لینک‌های من</strong><small>دسترسی سریع</small></button>
+        <button class="tile" data-go="saved"><span class="neon orange"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12v18l-6-4-6 4z"/></svg></span><strong>مورد علاقه‌ها</strong><small>نشان‌شده‌ها</small></button>
+        <button class="tile" data-go="manage"><span class="neon cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19 13.5a7 7 0 0 0 0-3l2-1.5-2-3.5-2.4 1a8 8 0 0 0-2.6-1.5L13.5 2h-4L9 5a8 8 0 0 0-2.6 1.5L4 5.5 2 9l2 1.5a7 7 0 0 0 0 3L2 15l2 3.5 2.4-1A8 8 0 0 0 9 19l.5 3h4l.5-3a8 8 0 0 0 2.6-1.5l2.4 1L21 15z"/></svg></span><strong>مدیریت</strong><small>تنظیم محتوای اپ</small></button>
+      </div>
+      <div class="section-head"><h2>آخرین موارد اضافه‌شده</h2><span class="subtle">محفوظ روی دستگاه</span></div>
+      <div id="recentList" class="list"><div class="empty">هنوز لینکی اضافه نشده؛ از بخش مدیریت شروع کن.</div></div>
+    </section>
+
+    <section id="blogs" class="page">
+      <div class="section-head"><h2>وبلاگ‌های من</h2><span class="subtle">مطالب و پیوندها</span></div>
+      <p class="note">روی نام هر وبلاگ بزن تا بخش آن همین‌جا باز شود. برای خواندن سایت، فعلاً پیوند مشاهده در مرورگر در دسترس است؛ نمایش متن نوشته‌ها داخل برنامه در مرحله فنی بعدی تکمیل می‌شود.</p>
+      <div id="blogList" class="list"></div>
+    </section>
+    <section id="podcasts" class="page"><div class="section-head"><h2>پادکست‌ها</h2><span class="subtle">شنیدن و دنبال کردن</span></div><div id="podcastList" class="list"></div></section>
+    <section id="social" class="page"><div class="section-head"><h2>شبکه‌های اجتماعی</h2><span class="subtle">صفحه‌های من</span></div><div id="socialList" class="list"></div></section>
+    <section id="links" class="page"><div class="section-head"><h2>لینک‌های من</h2><span class="subtle">دسترسی‌های دلخواه</span></div><div id="linkList" class="list"></div></section>
+    <section id="saved" class="page"><div class="section-head"><h2>مورد علاقه‌ها</h2><span class="subtle">نشان‌شده‌ها</span></div><div id="savedList" class="list"></div></section>
+
+    <section id="manage" class="page">
+      <div class="section-head"><h2>مدیریت RP@P</h2><span class="subtle">بدون نیاز به تغییر کد</span></div>
+      <div class="glass formbox">
+        <h3>افزودن مورد جدید</h3>
+        <label for="kind">نوع محتوا</label>
+        <select id="kind" class="field">
+          <option value="blog">وبلاگ</option><option value="podcast">پادکست</option><option value="social">شبکه اجتماعی</option><option value="link">لینک دلخواه</option>
+        </select>
+        <label for="title">عنوان</label><input id="title" class="field" placeholder="مثلاً وبلاگ شخصی من">
+        <label for="url">آدرس کامل لینک</label><input id="url" class="field" type="url" placeholder="https://example.com">
+        <label for="description">توضیح کوتاه (اختیاری)</label><input id="description" class="field" placeholder="توضیحی برای نمایش در اپ">
+        <button class="primary" id="addBtn">＋ افزودن به اپ</button>
+      </div>
+      <div class="glass formbox">
+        <h3>پشتیبان‌گیری و بازیابی</h3>
+        <p class="note">اطلاعات در حافظه همین مرورگر ذخیره می‌شوند. برای انتقال به دستگاه دیگر، از فایل پشتیبان استفاده کن.</p>
+        <div class="row-actions"><button class="secondary" id="exportBtn">دریافت فایل پشتیبان</button><button class="secondary" id="importBtn">بازیابی پشتیبان</button><input id="importFile" type="file" accept="application/json" class="hidden"></div>
+      </div>
+      <div class="glass formbox">
+        <h3>موارد ثبت‌شده</h3><div id="manageList" class="list"></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<nav class="bottom"><div class="nav">
+  <button class="active" data-page="home"><span>⌂</span>خانه</button>
+  <button data-page="blogs"><span>▤</span>وبلاگ‌ها</button>
+  <button data-page="podcasts"><span>♫</span>پادکست‌ها</button>
+  <button data-page="social"><span>◎</span>اجتماعی</button>
+  <button data-page="manage"><span>⚙</span>بیشتر</button>
+</div></nav>
+
+<script>
+const STORE='rpap-data-v1', THEME='rpap-theme';
+let data=JSON.parse(localStorage.getItem(STORE)||JSON.stringify({items:[{
+  id:'blogfa-pourkariman',kind:'blog',title:'چیزی شبیه زندگی',
+  url:'https://pourkariman.blogfa.com/',feedUrl:'https://pourkariman.blogfa.com/rss.aspx',
+  description:'وبلاگ بلاگفا',saved:false,createdAt:new Date().toISOString()
+},{
+  id:'blogix-rpblog',kind:'blog',title:'𝙍Ξ𝙕a𝑎',
+  url:'https://rpblog.blogix.ir/',feedUrl:'',
+  description:'وبلاگ بلاگیکس',saved:false,createdAt:new Date().toISOString()
+},{
+  id:'blogsky-pourkariman',kind:'blog',title:':-( بغض سنگی :-(',
+  url:'https://pourkariman.blogsky.com/',feedUrl:'',
+  description:'شعر، خاطره و دل‌نوشته · بلاگ‌اسکای',saved:false,createdAt:new Date().toISOString()
+}]}));
+// Add newly bundled blogs to existing installations without overwriting user data.
+const bundledBlogs=[
+ {id:'blogfa-pourkariman',kind:'blog',title:'چیزی شبیه زندگی',url:'https://pourkariman.blogfa.com/',feedUrl:'https://pourkariman.blogfa.com/rss.aspx',description:'وبلاگ بلاگفا',saved:false,createdAt:new Date().toISOString()},
+ {id:'blogix-rpblog',kind:'blog',title:'𝙍Ξ𝙕a𝑎',url:'https://rpblog.blogix.ir/',feedUrl:'',description:'وبلاگ بلاگیکس',saved:false,createdAt:new Date().toISOString()},
+ {id:'blogsky-pourkariman',kind:'blog',title:':-( بغض سنگی :-(',url:'https://pourkariman.blogsky.com/',feedUrl:'',description:'شعر، خاطره و دل‌نوشته · بلاگ‌اسکای',saved:false,createdAt:new Date().toISOString()}
+];
+for(const blog of bundledBlogs){if(!data.items.some(x=>x.id===blog.id))data.items.push(blog)}
+localStorage.setItem(STORE,JSON.stringify(data));
+const $=id=>document.getElementById(id);
+const labels={blog:'وبلاگ',podcast:'پادکست',social:'شبکه اجتماعی',link:'لینک'};
+const icons={blog:'▤',podcast:'♫',social:'◎',link:'↗'};
+function save(){localStorage.setItem(STORE,JSON.stringify(data));render()}
+function safeUrl(v){try{let u=new URL(v);return ['http:','https:'].includes(u.protocol)?u.href:null}catch{return null}}
+function escapeHtml(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function itemHtml(x,manage=false){return `<div class="item"><div class="mini">${icons[x.kind]||'↗'}</div><div class="info"><strong>${escapeHtml(x.title)}</strong><small>${escapeHtml(x.description||labels[x.kind])} · ${escapeHtml(x.url)}</small></div><a href="${escapeHtml(x.url)}" target="_blank" rel="noopener noreferrer" aria-label="باز کردن لینک">↗</a>${manage?`<div class="row-actions"><button class="secondary" onclick="toggleSave('${x.id}')">${x.saved?'★':'☆'}</button><button class="danger" onclick="removeItem('${x.id}')">حذف</button></div>`:''}</div>`}
+function renderList(id,kind){let arr=data.items.filter(x=>x.kind===kind);$(id).innerHTML=arr.length?arr.map(x=>itemHtml(x)).join(''):'<div class="empty">هنوز موردی اضافه نشده است. از بخش مدیریت می‌توانی اضافه کنی.</div>'}
+
+function renderBlogs(){
+ const arr=data.items.filter(x=>x.kind==='blog');
+ $('blogList').innerHTML=arr.length?arr.map(x=>`
+  <div class="blog-accordion">
+   <details>
+    <summary>
+     <div class="mini">${icons.blog}</div>
+     <div class="info"><strong>${escapeHtml(x.title)}</strong><small>${escapeHtml(x.description||'وبلاگ')} · ${escapeHtml(x.url)}</small></div>
+     <span class="blog-arrow" aria-hidden="true">⌄</span>
+    </summary>
+    <div class="blog-content">
+     <p>این بخش برای نمایش نوشته‌های همین وبلاگ درون RP@P در نظر گرفته شده است. دریافت خودکار مطالب هنوز برای این سرویس تأیید نشده؛ فعلاً می‌توانی وبلاگ را از اینجا باز کنی.</p>
+     <div class="blog-actions">
+      <a class="primary-link" href="${escapeHtml(x.url)}" target="_blank" rel="noopener noreferrer">↗ مشاهده وبلاگ در مرورگر</a>
+      <a href="#" onclick="toggleSave('${x.id}');return false">${x.saved?'★ حذف از علاقه‌مندی‌ها':'☆ افزودن به علاقه‌مندی‌ها'}</a>
+     </div>
+    </div>
+   </details>
+  </div>`).join(''):'<div class="empty">هنوز وبلاگی اضافه نشده است. از بخش مدیریت می‌توانی اضافه کنی.</div>';
+}
+function render(){
+ renderBlogs();renderList('podcastList','podcast');renderList('socialList','social');renderList('linkList','link');
+ let recent=[...data.items].reverse().slice(0,4);$('recentList').innerHTML=recent.length?recent.map(x=>itemHtml(x)).join(''):'<div class="empty">هنوز لینکی اضافه نشده؛ از بخش مدیریت شروع کن.</div>';
+ let saved=data.items.filter(x=>x.saved);$('savedList').innerHTML=saved.length?saved.map(x=>itemHtml(x)).join(''):'<div class="empty">هنوز مورد علاقه‌ای انتخاب نکرده‌ای.</div>';
+ $('manageList').innerHTML=data.items.length?data.items.map(x=>itemHtml(x,true)).join(''):'<div class="empty">فهرست خالی است.</div>';
+}
+function go(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
+$('addBtn').onclick=()=>{
+ const kind=$('kind').value,title=$('title').value.trim(),url=safeUrl($('url').value.trim()),description=$('description').value.trim();
+ if(!title||!url){alert('لطفاً عنوان و یک آدرس معتبر با https:// وارد کن.');return}
+ data.items.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),kind,title,url,description,saved:false,createdAt:new Date().toISOString()});
+ $('title').value='';$('url').value='';$('description').value='';save();alert('با موفقیت اضافه شد.');go(kind==='blog'?'blogs':kind==='podcast'?'podcasts':kind==='social'?'social':'links');
+};
+window.removeItem=id=>{if(confirm('این مورد حذف شود؟')){data.items=data.items.filter(x=>x.id!==id);save()}};
+window.toggleSave=id=>{let x=data.items.find(x=>x.id===id);if(x){x.saved=!x.saved;save()}};
+$('themeBtn').onclick=()=>{let next=document.documentElement.dataset.theme==='light'?'dark':'light';document.documentElement.dataset.theme=next;localStorage.setItem(THEME,next)};
+const initialTheme=localStorage.getItem(THEME)||'dark';document.documentElement.dataset.theme=initialTheme;
+$('exportBtn').onclick=()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='RPAP-backup.json';a.click();URL.revokeObjectURL(a.href)};
+$('importBtn').onclick=()=>$('importFile').click();
+$('importFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let parsed=JSON.parse(await f.text());if(!Array.isArray(parsed.items))throw 0;data=parsed;save();alert('پشتیبان بازیابی شد.')}catch{alert('فایل پشتیبان معتبر نیست.')}e.target.value=''};
+
+const CENTRAL_API_URL = 'https://script.google.com/macros/s/AKfycbxK-9WdH1gVPSrtKYtffmpQ6xmSccWW-45G1et0bIQHDD_iDPRhbHjzemULs1fAutHJ/exec';
+function loadCentralContent(){
+  const callbackName = 'rpapCentralCallback_' + Date.now();
+  let script = document.createElement('script');
+  let finished = false;
+  const cleanup = () => {
+    finished = true;
+    try { delete window[callbackName]; } catch (_) { window[callbackName] = undefined; }
+    if (script.parentNode) script.parentNode.removeChild(script);
+  };
+  const timer = setTimeout(() => {
+    if (finished) return;
+    cleanup();
+    setConnectionStatus('اتصال به محتوای مرکزی برقرار نشد؛ اطلاعات همین دستگاه نمایش داده می‌شود.');
+  }, 12000);
+  window[callbackName] = response => {
+    if (finished) return;
+    clearTimeout(timer);
+    cleanup();
+    if (!response || response.success !== true || !response.data) {
+      setConnectionStatus('پاسخ محتوای مرکزی معتبر نبود؛ اطلاعات همین دستگاه نمایش داده می‌شود.');
+      return;
+    }
+    const map = [
+      ['blogs','blog'], ['podcasts','podcast'], ['social','social'], ['links','link']
+    ];
+    let remote = [];
+    for (const [key,kind] of map) {
+      const rows = Array.isArray(response.data[key]) ? response.data[key] : [];
+      for (const row of rows) {
+        const url = safeUrl(row.url || '');
+        if (!url || !String(row.title || '').trim()) continue;
+        const id = 'central-' + kind + '-' + String(row.id || encodeURIComponent(url));
+        const old = data.items.find(x => x.id === id);
+        remote.push({
+          id, kind, title: String(row.title), url,
+          description: String(row.description || ''),
+          saved: old ? !!old.saved : false,
+          createdAt: old ? old.createdAt : new Date().toISOString(),
+          central: true
+        });
+      }
+    }
+    const localOnly = data.items.filter(x => !x.central && !String(x.id).startsWith('central-'));
+    data.items = [...remote, ...localOnly];
+    localStorage.setItem(STORE, JSON.stringify(data));
+    render();
+    setConnectionStatus('اتصال به محتوای مرکزی برقرار شد.');
+  };
+  script.onerror = () => {
+    if (finished) return;
+    clearTimeout(timer);
+    cleanup();
+    setConnectionStatus('دریافت محتوای مرکزی ممکن نشد؛ اطلاعات همین دستگاه نمایش داده می‌شود.');
+  };
+  script.src = CENTRAL_API_URL + '?page=data&callback=' + encodeURIComponent(callbackName) + '&_=' + Date.now();
+  document.head.appendChild(script);
+}
+function setConnectionStatus(message){
+  let el = document.getElementById('centralStatus');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'centralStatus';
+    el.className = 'note';
+    const target = document.querySelector('main') || document.body;
+    target.insertBefore(el, target.firstChild);
+  }
+  el.textContent = message;
+}
+
+render();
+loadCentralContent();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body>
+</html>
