@@ -87,13 +87,13 @@ function safeUrl(value){try{const u=new URL(String(value));return ['https:','htt
 function escapeHTML(value=''){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function itemCard(item,manage=false){
  const type=TYPES[item.kind]||TYPES.link;
- return `<article class="item"><div class="mini">${type.icon}</div><div class="info"><strong>${escapeHTML(item.title)}</strong><small>${escapeHTML(item.description||type.label)}</small></div><a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="باز کردن لینک">↗</a>${manage?`<div class="row-actions"><button class="secondary" data-action="favorite" data-id="${escapeHTML(item.id)}">${item.saved?'★':'☆'}</button><button class="danger" data-action="delete" data-id="${escapeHTML(item.id)}">حذف</button></div>`:''}</article>`;
+ return `<article class="item"><div class="mini">${type.icon}</div><div class="info"><strong>${escapeHTML(item.title)}</strong><small>${escapeHTML(item.description||type.label)}</small></div><a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="باز کردن لینک">↗</a><div class="row-actions"><button class="secondary" data-action="favorite" data-id="${escapeHTML(item.id)}" aria-label="افزودن به علاقه‌مندی‌ها">${item.saved?'★ ذخیره‌شده':'☆ علاقه‌مندی'}</button>${manage?`<button class="danger" data-action="delete" data-id="${escapeHTML(item.id)}">حذف</button>`:''}</div></article>`;
 }
 function emptyMessage(text){return `<div class="empty">${text}</div>`;}
 function renderCategory(kind){
  const target=$(TYPES[kind].list),items=appData.items.filter(x=>x.kind===kind);
  if(kind==='blog'){
-  target.innerHTML=items.length?items.map(x=>`<details class="blog-card"><summary>${escapeHTML(x.title)}</summary><p>${escapeHTML(x.description||'وبلاگ')}</p><a href="${escapeHTML(x.url)}" target="_blank" rel="noopener noreferrer">↗ مشاهده وبلاگ</a></details>`).join(''):emptyMessage('هنوز وبلاگی اضافه نشده است.');
+  target.innerHTML=items.length?items.map(x=>`<details class="blog-card"><summary>${escapeHTML(x.title)}</summary><p>${escapeHTML(x.description||'وبلاگ')}</p><div class="row-actions"><a href="${escapeHTML(x.url)}" target="_blank" rel="noopener noreferrer">↗ مشاهده وبلاگ</a><button class="secondary" data-action="favorite" data-id="${escapeHTML(x.id)}">${x.saved?'★ ذخیره‌شده':'☆ افزودن به علاقه‌مندی‌ها'}</button></div></details>`).join(''):emptyMessage('هنوز وبلاگی اضافه نشده است.');
  }else target.innerHTML=items.length?items.map(x=>itemCard(x)).join(''):emptyMessage('هنوز موردی اضافه نشده است.');
 }
 function render(){
