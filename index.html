@@ -145,6 +145,14 @@ function setConnectionStatus(message,ok=false){
  if(!element){element=document.createElement('div');element.id='centralStatus';element.setAttribute('role','status');$('home').insertBefore(element,$('home').firstChild);}
  element.textContent=message;element.style.borderColor=ok?'#27c98a':'var(--line)';
 }
+function normalizeItemUrl(value){
+ try{
+  const url=new URL(String(value));
+  url.hash='';
+  if(url.pathname.length>1)url.pathname=url.pathname.replace(/\\/+$/,'');
+  return url.href.replace(/\\/$/,'').toLowerCase();
+ }catch{return String(value||'').trim().toLowerCase();}
+}
 function mergeCentralData(response){
  if(!response||response.success!==true||!response.data)throw new Error('پاسخ سرور معتبر نیست.');
  const mapping=[['blogs','blog'],['podcasts','podcast'],['social','social'],['links','link']];
@@ -159,7 +167,13 @@ function mergeCentralData(response){
    centralItems.push({id,kind,title,url,description:String(row.description||''),saved:previous?!!previous.saved:false,createdAt:previous?previous.createdAt:new Date().toISOString(),central:true});
   }
  }
- const localItems=appData.items.filter(x=>!x.central&&!String(x.id).startsWith('central-'));
+ // Keep locally-created items, but suppress a local/default copy when the
+ // same content is already present in the central database.
+ const centralKeys=new Set(centralItems.map(x=>`${x.kind}|${normalizeItemUrl(x.url)}`));
+ const localItems=appData.items.filter(x=>{
+  if(x.central||String(x.id).startsWith('central-'))return false;
+  return !centralKeys.has(`${x.kind}|${normalizeItemUrl(x.url)}`);
+ });
  appData.items=[...centralItems,...localItems];
  localStorage.setItem(STORAGE_KEY,JSON.stringify(appData));render();
  setConnectionStatus('اتصال به محتوای مرکزی برقرار شد.',true);
