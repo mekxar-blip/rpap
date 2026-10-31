@@ -1,5 +1,5 @@
 {
-  "name": "RP@P | فضای شخصی تو",
+  "name": "RP@P",
   "short_name": "RP@P",
   "lang": "fa",
   "dir": "rtl",
@@ -9,9 +9,15 @@
   "theme_color": "#080b16",
   "icons": [
     {
-      "src": "icons/icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
